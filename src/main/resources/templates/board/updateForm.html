@@ -1,0 +1,50 @@
+{{>layout/header}}
+
+
+<div class="container">
+    <form action="/board/update" method="post">
+      <div class="form-group">
+        <input type="hidden" name="id" value="{{board.id}}">
+        <label for="title" class="col-form-label col-form-label-lg">제목</label>
+        <input
+          type="text"
+          class="form-control form-control-lg"
+          id="title"
+          placeholder="Enter Title"
+          name="title"
+          value="{{board.title}}"
+          required
+        />
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="summernote" class="col-form-label col-form-label-lg">내용</label>
+        <textarea id="summernote" name="content">
+            {{{board.content}}}
+        </textarea>
+      </div>
+      <br>
+      <button type="submit" id="btn-save" class="btn btn-primary btn-lg">수정하기</button>
+      <a href="/board/detailForm/{{board.id}}" class="btn btn-secondary btn-lg">돌아가기</a>
+    </form>
+    
+  </div>
+
+  <script>
+    $('#summernote').summernote({
+      placeholder: 'Hello stand alone ui',
+      tabsize: 2,
+      height: 500,
+      toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['table', ['table']],
+        ['insert', ['link', 'picture', 'video']],
+        ['view', ['fullscreen', 'codeview', 'help']]
+      ]
+    });
+  </script>
+
+{{>layout/footer}}

@@ -1,0 +1,61 @@
+{{>layout/header}}
+
+<div id="container" class="container">
+    <a href="/" class="btn btn-secondary btn-lg">돌아가기</a>
+    {{#writer}}
+    <a href="/board/updateForm/{{board.id}}" class="btn btn-warning btn-lg">수정</a>
+    <a href="/board/delete/{{board.id}}" class="btn btn-danger btn-lg">삭제</a>{{/writer}}
+  
+    <br /><br />
+    <div>글 번호 : <span id="id">{{board.id}}</span></div>
+    <div>작성자 : <span id="writer">{{board.user.username}}</span></div>
+    <div class="form-group">
+      <h3>제목 : {{board.title}}</h3>
+    </div>
+    <hr />
+    <div class="form-group">
+      <div>내용 : {{{board.content}}}</div>
+    </div>
+    <hr />
+  
+    <div class="card">
+      <div class="card-header">댓글 리스트</div>
+      <ul id="reply--box" class="list-group">
+        {{#board.replys}}
+        <li id="reply--{{id}}" class="list-group-item d-flex justify-content-between">
+          <div>{{content}}</div>
+          <div id="delete--{{id}}" class="font-italic">작성자 : {{user.username}} &nbsp
+            <script>
+            if("{{user.username}}"==="{{principal.user.username}}"){
+                const reply = document.getElementById('delete--{{id}}');
+                reply.innerHTML=`작성자 : {{user.username}} &nbsp <a href="/board/replyDelete/{{id}}/{{board.id}}" class="btn btn-danger badge">삭제</a>`;
+              }
+            </script>
+          </div>
+        </li>
+        {{/board.replys}}
+      </ul>
+    </div>
+  
+    <div>
+      
+        <div class="card">
+          <div class="card-body">
+            <form method="POST" action="/board/replyWrite">
+              <input type="hidden" id="userId" name="userId" value="{{principal.user.id}}"/>
+              <input type="hidden" id="boardId" name="boardId" value="{{board.id}}"/>
+              <textarea id="reply-content" name="content" class="form-control" rows="3"></textarea>
+              <br>
+              <button type="submit" id="btn-reply" class="btn btn-primary btn-lg">등록</button>
+            </form>
+          </div>
+        </div>
+        
+      </form>
+    </div>
+    
+  
+  </div>
+
+
+  {{>layout/footer}}

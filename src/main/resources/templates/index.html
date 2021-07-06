@@ -1,0 +1,41 @@
+{{>layout/header}}
+
+<div class="container" style="max-width:1000px">
+
+
+  {{#boards}}
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">{{title}}</h4>
+      <h5 class="card-subtitle">{{user.username}}</h5>
+      <hr />
+      <a href="/board/detailForm/{{id}}" class="btn btn-primary btn-lg" >상세보기</a>
+    </div>
+  </div>
+
+  <hr>
+  {{/boards}}
+
+  <ul id="pages" class="pagination justify-content-center">
+    {{^boards.first}}
+    <li class="page-item">
+      <a class="page-link" href="?page={{previous}}">Previous</a>
+    </li>
+    {{/boards.first}}
+    {{#pages}}
+  {{{.}}}
+  {{/pages}}
+    {{^boards.last}} 
+  <li class="page-item"></li>
+  <a class="page-link" href="?page={{next}}">Next</a>
+  </li>
+  {{/boards.last}}
+</ul>
+
+  </div>
+
+  
+  
+
+
+{{>layout/footer}}
